@@ -19,22 +19,22 @@ Function Add-VMImage{
     Param(
         [Parameter(Mandatory=$true, ParameterSetName='VMImageFromLocal')]
         [Parameter(Mandatory=$true, ParameterSetName='VMImageFromAzure')]
-        [ValidatePattern(“[a-zA-Z0-9-]{3,}”)]
+        [ValidatePattern('[a-zA-Z0-9-]{3,}')]
         [String] $publisher,
        
         [Parameter(Mandatory=$true, ParameterSetName='VMImageFromLocal')]
         [Parameter(Mandatory=$true, ParameterSetName='VMImageFromAzure')]
-        [ValidatePattern(“[a-zA-Z0-9-]{3,}”)]
+        [ValidatePattern('[a-zA-Z0-9-]{3,}')]
         [String] $offer,
     
         [Parameter(Mandatory=$true, ParameterSetName='VMImageFromLocal')]
         [Parameter(Mandatory=$true, ParameterSetName='VMImageFromAzure')]
-        [ValidatePattern(“[a-zA-Z0-9-]{3,}”)]
+        [ValidatePattern('[a-zA-Z0-9-]{3,}')]
         [String] $sku,
     
         [Parameter(Mandatory=$true, ParameterSetName='VMImageFromLocal')]
         [Parameter(Mandatory=$true, ParameterSetName='VMImageFromAzure')]
-        [ValidatePattern(“\d+\.\d+\.\d+”)]
+        [ValidatePattern('\d+\.\d+\.\d+')]
         [String] $version,
 
         [Parameter(Mandatory=$true, ParameterSetName='VMImageFromLocal')]
@@ -279,19 +279,19 @@ Function Add-VMImage{
 Function Remove-VMImage{
     Param(
         [Parameter(Mandatory=$true)]
-        [ValidatePattern(“[a-zA-Z0-9-]{3,}”)]
+        [ValidatePattern('[a-zA-Z0-9-]{3,}')]
         [String] $publisher,
        
         [Parameter(Mandatory=$true)]
-        [ValidatePattern(“[a-zA-Z0-9-]{3,}”)]
+        [ValidatePattern('[a-zA-Z0-9-]{3,}')]
         [String] $offer,
     
         [Parameter(Mandatory=$true)]
-        [ValidatePattern(“[a-zA-Z0-9-]{3,}”)]
+        [ValidatePattern('[a-zA-Z0-9-]{3,}')]
         [String] $sku,
     
         [Parameter(Mandatory=$true)]
-        [ValidatePattern(“\d+\.\d+\.\d+”)]
+        [ValidatePattern('\d+\.\d+\.\d+')]
         [String] $version,
 
         [Parameter(Mandatory=$true)]
@@ -577,13 +577,13 @@ function New-Server2016VMImage {
 
 Function CreateGalleyItem{
     Param(
-        [ValidatePattern(“[a-zA-Z0-9-]{3,}”)]
+        [ValidatePattern('[a-zA-Z0-9-]{3,}')]
         [String] $publisher,      
-        [ValidatePattern(“[a-zA-Z0-9-]{3,}”)]
+        [ValidatePattern('[a-zA-Z0-9-]{3,}')]
         [String] $offer,
-        [ValidatePattern(“[a-zA-Z0-9-]{3,}”)]
+        [ValidatePattern('[a-zA-Z0-9-]{3,}')]
         [String] $sku,
-        [ValidatePattern(“\d+\.\d+\.\d+”)]
+        [ValidatePattern('\d+\.\d+\.\d+')]
         [String] $version,
         [ValidateSet('Windows' ,'Linux')]
         [String] $osType,
