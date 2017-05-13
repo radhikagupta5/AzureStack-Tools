@@ -15,6 +15,12 @@ Import-Module ..\Connect\AzureStack.Connect.psm1
 Import-Module .\AzureStack.ComputeAdmin.psm1
 ```
 
+You will need to reference your Azure Stack Administrator environment. To create an administrator environment use the below. The ARM endpoint below is the administrator default for a one-node environment.
+
+```powershell
+Add-AzureStackAzureRmEnvironment -Name "AzureStackAdmin" -ArmEndpoint "https://adminmanagement.local.azurestack.external" 
+```
+
 Adding a VM Image requires that you obtain the value of your Directory Tenant ID. For **Azure Active Directory** environments provide your directory tenant name:
 
 ```powershell
@@ -32,12 +38,6 @@ $TenantID = Get-DirectoryTenantID -ADFS -EnvironmentName AzureStackAdmin
 The New-Server2016VMImage allows you to add a Windows Server 2016 Evaluation VM Image to your Azure Stack Marketplace. 
 
 As a prerequisite, you need to obtain the Windows Server 2016 Evaluation ISO which can be found [here](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2016).
-
-You will need to reference your Azure Stack Administrator environment. To create an administrator environment use the below. The ARM endpoint below is the administrator default for a one-node environment.
-
-```powershell
-Add-AzureStackAzureRmEnvironment -Name "AzureStackAdmin" -ArmEndpoint "https://adminmanagement.local.azurestack.external" 
-```
 
 An example usage is the following:
 ```powershell
@@ -112,7 +112,7 @@ An example usage is the following:
 
 ```powershell
 $path = "<Path to vm extension zip>"
-Add-VMExtension -publisher "Publisher" -type "Type" -version $version -extensionLocalPath $path -osType Windows -tenantID $TenantID -azureStackCredentials $azureStackCredentials -EnvironmentName "AzureStackAdmin"
+Add-VMExtension -publisher "Publisher" -type "Type" -version "1.0.0.0" -extensionLocalPath $path -osType Windows -tenantID $TenantID -azureStackCredentials $azureStackCredentials -EnvironmentName "AzureStackAdmin"
 ```
 
 
@@ -140,8 +140,9 @@ VM Scale Set allows deployment of multi-VM collections. To add a gallery item wi
 3. Add VM Scale Set gallery item as follows
 
 ```powershell
-$Tenant = "<AAD Tenant Id used to connect to AzureStack>"
+$TenantId = "<AAD Tenant Id used to connect to AzureStack>"
 $Arm = "<AzureStack administrative Azure Resource Manager endpoint URL>"
+$Location = "<The location name of your AzureStack Environment>"
 
 Add-AzureStackAzureRmEnvironment -Name AzureStackAdmin -ArmEndpoint $Arm 
 
@@ -149,11 +150,11 @@ $Password = ConvertTo-SecureString -AsPlainText -Force "<your AzureStack admin u
 $User = "<your AzureStack admin user name>"
 $Creds =  New-Object System.Management.Automation.PSCredential $User, $Password
 
-Login-AzureRmAccount -EnvironmentName AzureStackAdmin -Credential $Creds -TenantId $Tenant
+Login-AzureRmAccount -EnvironmentName AzureStackAdmin -Credential $Creds -TenantId $TenantId
 
 Select-AzureRmSubscription -SubscriptionName "Default Provider Subscription"
 
-Add-AzureStackVMSSGalleryItem
+Add-AzureStackVMSSGalleryItem -Location $Location
 ```
 To remove VM Scale Set gallery item run the following command:
 
